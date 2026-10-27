@@ -1,0 +1,142 @@
+/* Deed preview, built in HTML so the name, location and date can update live. */
+
+.deed-card {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 6px;
+  container-type: inline-size;
+  background:
+    radial-gradient(ellipse at 50% 18%, rgba(48, 140, 209, .55), transparent 55%),
+    linear-gradient(rgba(5, 12, 28, .2), rgba(5, 12, 28, .2) 50%, rgba(0, 0, 0, .65)),
+    url('img/sea-of-tranquility.jpg') center 70% / cover,
+    #07101f;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 30px 80px rgba(48, 140, 209, .25);
+}
+
+.deed-card.landscape { aspect-ratio: 4 / 3; }
+
+.deed-frame {
+  position: absolute;
+  inset: 3.5cqw;
+  border: 1px solid rgba(120, 190, 255, .55);
+  pointer-events: none;
+}
+
+.deed-frame::before, .deed-frame::after {
+  content: '';
+  position: absolute;
+  width: 16cqw;
+  height: 16cqw;
+  border: 2px solid #5fb4ff;
+}
+.deed-frame::before { top: -1.2cqw; left: -1.2cqw; border-right: 0; border-bottom: 0; }
+.deed-frame::after { bottom: -1.2cqw; right: -1.2cqw; border-left: 0; border-top: 0; }
+
+.deed-inner {
+  position: absolute;
+  inset: 7cqw 8cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.deed-logo svg { width: 13cqw; height: 13cqw; }
+
+.deed-registry {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: .3em;
+  font-size: 2.4cqw;
+  color: #9fd0ff;
+  margin-top: 1cqw;
+}
+
+.deed-title {
+  margin: 4cqw 0 0;
+  font-family: Arial, sans-serif;
+  font-weight: 900;
+  font-size: 8.6cqw;
+  line-height: 1.02;
+  letter-spacing: .03em;
+  color: #e9f5ff;
+  text-shadow: 0 0 2cqw #308cd1, 0 0 5cqw rgba(48, 140, 209, .8);
+}
+
+.deed-title small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2cqw;
+  font-size: 5cqw;
+  letter-spacing: .08em;
+}
+
+.deed-title small::before, .deed-title small::after {
+  content: '';
+  width: 8cqw;
+  height: 2px;
+  background: #9fd0ff;
+}
+
+.deed-glow {
+  width: 70%;
+  height: 2px;
+  margin: 6cqw auto 0;
+  background: #5fb4ff;
+  box-shadow: 0 0 2cqw 1cqw rgba(95, 180, 255, .6);
+}
+
+.deed-fields {
+  width: 72%;
+  margin-top: auto;
+  margin-bottom: 4cqw;
+}
+
+.deed-value {
+  min-height: 5cqw;
+  font-size: 4.2cqw;
+  border-bottom: 1px solid rgba(255, 255, 255, .8);
+  padding-bottom: .6cqw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.deed-value.name { font-size: 5.4cqw; }
+
+.deed-label {
+  font-family: Arial, sans-serif;
+  font-size: 1.9cqw;
+  letter-spacing: .28em;
+  color: #9fd0ff;
+  margin: .9cqw 0 3cqw;
+}
+
+.deed-text {
+  font-family: Arial, sans-serif;
+  font-size: 1.55cqw;
+  line-height: 1.5;
+  color: #d9e6f3;
+  margin: 0 0 1.5cqw;
+}
+
+.deed-slashes {
+  font-family: Arial, sans-serif;
+  font-size: 2cqw;
+  letter-spacing: .3em;
+  color: #9fd0ff;
+}
+
+/* Frame add-on preview */
+.deed-card.framed {
+  border: 4cqw solid #2b1d12;
+  border-image: linear-gradient(135deg, #5a3d24, #2b1d12 40%, #6b4a2c 60%, #241708) 1;
+}
+.deed-card.framed.black { border-image: linear-gradient(135deg, #3a3a3a, #0d0d0d 40%, #333 60%, #050505) 1; }
+.deed-card.framed.gold { border-image: linear-gradient(135deg, #f3d27a, #a77b25 40%, #f6dd94 60%, #8a6219) 1; }

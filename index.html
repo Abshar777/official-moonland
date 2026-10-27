@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Galactic Land Registry · Sign in</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .login {
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    .login label {
+      display: block;
+      font-size: 14px;
+      color: var(--muted);
+      margin: 18px 0 6px;
+    }
+    .login input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      color: #fff;
+      font: inherit;
+      font-size: 15px;
+    }
+    .login input:focus {
+      outline: none;
+      border-color: var(--blue-bright);
+    }
+    .login .btn { width: 100%; margin-top: 26px; padding: 12px; }
+    .error {
+      display: none;
+      margin-top: 14px;
+      color: #ff8a80;
+      font-size: 14px;
+      text-align: center;
+    }
+    .error.show { display: block; }
+  </style>
+</head>
+<body>
+  <div class="mock-bar">Mock demo page · Novelty only · Not a real registry or purchase</div>
+
+  <header>
+    <a class="brand" href="index.html">
+      <span data-logo></span>
+      <span class="brand-name">GALACTIC<small>LAND REGISTRY</small></span>
+    </a>
+  </header>
+
+  <main>
+    <h1>Sign in to Your Lunar Account</h1>
+    <form class="panel login" id="loginForm" autocomplete="off">
+      <label for="username">Username</label>
+      <input id="username" name="username" required>
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" required>
+      <button class="btn btn-blue" type="submit">Sign in</button>
+      <p class="error" id="error">Wrong username or password.</p>
+    </form>
+  </main>
+
+  <footer>
+    Novelty item for fun only. Not a legal document. Nobody can own land on the Moon.
+  </footer>
+
+  <script src="auth.js"></script>
+  <script>
+    if (currentUser()) location.replace('my-land.html');
+    document.getElementById('loginForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const ok = signIn(e.target.username.value, e.target.password.value);
+      if (ok) location.href = 'my-land.html';
+      else document.getElementById('error').classList.add('show');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Galactic Land Registry · My Land</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .user strong { color: #fff; font-weight: 400; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 24px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(85, 131, 9, .18);
+      color: #a8d65a;
+      border: 1px solid rgba(85, 131, 9, .6);
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .owner {
+      font-size: 28px;
+      margin: 14px 0 4px;
+    }
+    .owner-sub { color: var(--muted); font-size: 14px; margin: 0 0 22px; }
+
+    dl {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      margin: 0;
+      border-top: 1px solid var(--line);
+    }
+    dt, dd {
+      margin: 0;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 15px;
+    }
+    dt { color: var(--muted); padding-right: 24px; }
+    dd { text-align: right; }
+    dd.total { color: var(--blue-bright); font-weight: 700; }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .map h2, .deed h2 {
+      font-weight: 400;
+      font-size: 20px;
+      margin: 0 0 16px;
+    }
+    .moon {
+      position: relative;
+      width: 100%;
+      max-width: 360px;
+      aspect-ratio: 1;
+      margin: 0 auto;
+    }
+    /* The disk spans 22–1378 px of the 1400 px photo; crop to just the disk. */
+    .moon-disk {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 0 60px rgba(48, 140, 209, .25);
+    }
+    .moon-disk img {
+      position: absolute;
+      width: 103.25%;
+      height: 103.25%;
+      left: -1.62%;
+      top: -1.62%;
+    }
+    /* 8.5° N, 31.4° E on the orthographic disk */
+    .pin {
+      position: absolute;
+      left: 75.6%;
+      top: 42.6%;
+      width: 0;
+      height: 0;
+    }
+    .pin::before, .pin::after {
+      content: '';
+      position: absolute;
+      left: -6px;
+      top: -6px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .pin::before { background: #308cd1; border: 2px solid #fff; left: -7px; top: -7px; }
+    .pin::after { border: 2px solid #308cd1; animation: pulse 2s ease-out infinite; }
+    .pin span {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      background: rgba(0, 0, 0, .75);
+      border: 1px solid #308cd1;
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-size: 11px;
+    }
+    @keyframes pulse {
+      from { transform: scale(.6); opacity: .9; }
+      to { transform: scale(3); opacity: 0; }
+    }
+    .map p { text-align: center; color: var(--muted); font-size: 14px; margin: 14px 0 0; }
+
+    .zoom {
+      position: relative;
+      margin-top: 22px;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .zoom img { display: block; width: 100%; height: 220px; object-fit: cover; }
+    .zoom figcaption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 24px 14px 10px;
+      background: linear-gradient(transparent, rgba(0, 0, 0, .85));
+      font-size: 14px;
+    }
+    .zoom figcaption small { display: block; color: var(--muted); font-size: 12px; }
+    .credit { font-size: 11px !important; margin-top: 12px !important; }
+
+    .deed { margin-top: 24px; }
+    .deed iframe {
+      width: 100%;
+      height: 720px;
+      border: 0;
+      border-radius: 6px;
+      background: #fff;
+    }
+
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+      .deed iframe { height: 520px; }
+    }
+    @media (max-width: 640px) {
+      .user span { display: none; }
+      .owner { font-size: 23px; }
+      .actions .btn { flex: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="mock-bar">Mock demo page · Novelty only · Not a real registry or purchase</div>
+
+  <header>
+    <a class="brand" href="my-land.html">
+      <span data-logo></span>
+      <span class="brand-name">GALACTIC<small>LAND REGISTRY</small></span>
+    </a>
+    <div class="user">
+      <span>Signed in as <strong id="userName"></strong></span>
+      <button class="btn" type="button" onclick="signOut()">Sign out</button>
+    </div>
+  </header>
+
+  <main>
+    <h1>My Lunar Land</h1>
+
+    <div class="grid">
+      <section class="panel">
+        <span class="status">● Registered</span>
+        <p class="owner">Shahla Safeer</p>
+        <p class="owner-sub">Certificate of Lunar Land Ownership</p>
+        <dl>
+          <dt>Plot No.</dt><dd>TRQ-1000-SS</dd>
+          <dt>Location</dt><dd>Sea of Tranquility</dd>
+          <dt>Area</dt><dd>1,000 sq ft (93 sq m)</dd>
+          <dt>Price per sq ft</dt><dd>USD 10</dd>
+          <dt>Total price</dt><dd class="total">USD 10,000</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-blue" href="#deed">View certificate</a>
+          <a class="btn btn-ghost" href="deed.pdf" download="Shahla-Safeer-Lunar-Certificate.pdf">Download PDF</a>
+        </div>
+      </section>
+
+      <section class="panel map">
+        <h2>Plot Location</h2>
+        <div class="moon" role="img" aria-label="Photo of the Moon with a pin on the Sea of Tranquility">
+          <div class="moon-disk"><img src="img/moon-nearside.jpg" alt=""></div>
+          <div class="pin"><span>TRQ-1000-SS</span></div>
+        </div>
+        <p>Sea of Tranquility · 8.5° N, 31.4° E · near side of the Moon</p>
+        <figure class="zoom">
+          <img src="img/sea-of-tranquility.jpg" alt="Close-up of the Sea of Tranquility">
+          <figcaption>Sea of Tranquility (Mare Tranquillitatis)<small>Close-up of the plot region</small></figcaption>
+        </figure>
+        <p class="credit">Images: NASA/GSFC/Arizona State University (LRO)</p>
+      </section>
+    </div>
+
+    <section class="panel deed" id="deed">
+      <h2>Ownership Certificate</h2>
+      <iframe src="deed.pdf" title="Lunar land ownership certificate"></iframe>
+    </section>
+  </main>
+
+  <footer>
+    <nav><a href="my-land.html">My Land</a><a href="#deed">Certificate</a></nav>
+    Novelty item for fun only. Not a legal document. Nobody can own land on the Moon.
+  </footer>
+
+  <script src="auth.js"></script>
+  <script>
+    const user = currentUser();
+    if (!user) location.replace('index.html');
+    else document.getElementById('userName').textContent = user;
+  </script>
+</body>
+</html>
